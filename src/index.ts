@@ -13,12 +13,13 @@ program
 
 
 program
-  .command("say-hello")
+  .command("hello")
   .description("says hello")
   .description("says hello")
   .action(()=>{
-    console.log("hey dattu")
-  })
+    console.log(chalk.green('Hello world'));
+    console.log(chalk.gray('This is styled text'));
+  });
 // TODO: Uncomment the code below to pass the first stage
 // program
 //   .command('hello')
