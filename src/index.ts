@@ -1,8 +1,8 @@
-#!/usr/bin/env bun
+#!/usr/bin/env node
 
 import { Command } from 'commander';
 import chalk from 'chalk';
-import process from 'process';
+import process from 'node:process';
 
 const program = new Command();
 
