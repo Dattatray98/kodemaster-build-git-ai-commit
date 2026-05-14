@@ -11,6 +11,14 @@ program
   .description('AI-powered commit message generator')
   .version('1.0.0');
 
+
+program
+  .command("say-hello")
+  .description("says hello")
+  .description("says hello")
+  .action(()=>{
+    console.log("hey dattu")
+  })
 // TODO: Uncomment the code below to pass the first stage
 // program
 //   .command('hello')

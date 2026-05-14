@@ -8,6 +8,7 @@
     "git-ai-commit": "src/index.ts"
   },
   "scripts": {
+    "build": "bun build src/index.ts --outdir dist --target=node",
     "dev": "bun run src/index.ts"
   },
   "dependencies": {
