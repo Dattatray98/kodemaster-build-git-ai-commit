@@ -5,6 +5,7 @@ import chalk from 'chalk';
 import process from 'process';
 import { getStagedDiff } from './git/diff';
 import { filterChanges, parseDiff } from './git/parser';
+import { generatePrompt } from './utils/formatter';
 
 const program = new Command();
 
@@ -52,6 +53,8 @@ program
       process.exit(1);
     }
 
+    const prompt = generatePrompt(changes);
+    console.log(prompt);
   });
 
 program.parse(process.argv);
