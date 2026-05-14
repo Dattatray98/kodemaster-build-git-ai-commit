@@ -7,6 +7,7 @@ import { getStagedDiff } from './git/diff';
 import { filterChanges, parseDiff } from './git/parser';
 import { generatePrompt } from './utils/formatter';
 import { configEnv } from './config/configEnv';
+import { generateCommitMessage } from './Ai/generater';
 
 const program = new Command();
 
@@ -57,9 +58,11 @@ program
     }
 
     const prompt = generatePrompt(changes);
-    console.log(prompt);
+    console.log(chalk.gray(prompt));
 
+    const GeneratedCommit = await generateCommitMessage(prompt);
 
+    console.log(chalk.green.bold(GeneratedCommit));
   });
 
 program.parse(process.argv);
