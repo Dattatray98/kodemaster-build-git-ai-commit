@@ -33,7 +33,7 @@ program
 
 
 program
-  .command('parsed-diff')
+  .command('generate')
   .description("shows the prased file chnage difference")
   .action(async () => {
     const diff = await getStagedDiff();
