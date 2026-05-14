@@ -36,9 +36,17 @@ program
   .command('parsed-diff')
   .description("shows the prased file chnage difference")
   .action(async()=>{
-    const stdout = await getStagedDiff();
-    console.log(parseDiff(stdout));
-  })
+    const diff = await getStagedDiff();
 
+    if(!diff){
+      console.log(chalk.red("No staged changes found. Did you forget to git add?"));
+      process.exit(1);
+    }
+
+    const changes = parseDiff(diff);
+    console.log(chalk.yellow.bold(`Found ${changes.length} changed file(s)`));
+
+    console.log(changes);
+  });
 
 program.parse(process.argv);
