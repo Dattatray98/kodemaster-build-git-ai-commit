@@ -65,6 +65,20 @@ program
   });
 
 
+program
+  .command("generate")
+  .description("shows the prased file chnage difference")
+  .action(async()=>{
+    validateConfig();
+    const diff = await getStagedDiff();
+    const changes = filterChanges(parseDiff(diff));
+    const prompt = generatePrompt(changes);
+    const message = await generateCommitMessage(prompt);
+
+    console.log('Proposed Commit Message:');
+    console.log(message);
+  });
+
 
 
 program.parse(process.argv);
