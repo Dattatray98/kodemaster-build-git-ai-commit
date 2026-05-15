@@ -6,7 +6,7 @@ import process from 'process';
 import { getStagedDiff } from './git/diff';
 import { filterChanges, parseDiff } from './git/parser';
 import { generatePrompt } from './utils/formatter';
-import { config } from './config';
+import { ValidationConfig } from './config';
 import dotenv from "dotenv";
 import { generateCommitMessage } from './Ai/generator';
 dotenv.config();
@@ -41,8 +41,8 @@ program
   .command('generate')
   .description("shows the prased file chnage difference")
   .action(async () => {
+    ValidationConfig();
     const diff = await getStagedDiff();
-
 
     if (!diff) {
       console.log(chalk.red("No staged changes found. Did you forget to git add?"));
@@ -51,19 +51,18 @@ program
 
     const changes = filterChanges(parseDiff(diff))
 
-    console.log(chalk.yellow.bold(`Found ${changes.length} changed file(s)`));
-
     if (changes.length === 0) {
       console.log(chalk.red("only ignored files found."));
       process.exit(1);
     }
 
     const prompt = generatePrompt(changes);
-    console.log(chalk.gray(prompt));
+    // console.log(chalk.gray(prompt));
 
     const GeneratedCommit = await generateCommitMessage(prompt);
 
-    console.log(chalk.green.bold(GeneratedCommit));
+    console.log('Proposed Commit Message:');
+    console.log(GeneratedCommit);
   });
 
 program.parse(process.argv);
