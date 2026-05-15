@@ -41,27 +41,27 @@ program
   .command('generate')
   .description("shows the prased file chnage difference")
   .action(async () => {
-    const diff = await getStagedDiff();
+    // const diff = await getStagedDiff();
 
-    if (!diff) {
-      console.log(chalk.red("No staged changes found. Did you forget to git add?"));
-      process.exit(1);
-    }
+    // if (!diff) {
+    //   console.log(chalk.red("No staged changes found. Did you forget to git add?"));
+    //   process.exit(1);
+    // }
 
-    const changes = filterChanges(parseDiff(diff))
+    // const changes = filterChanges(parseDiff(diff))
 
     // console.log(chalk.yellow.bold(`Found ${changes.length} changed file(s)`));
 
-    if (changes.length === 0) {
-      console.log(chalk.red("only ignored files found."));
-      process.exit(1);
-    }
+    // if (changes.length === 0) {
+    //   console.log(chalk.red("only ignored files found."));
+    //   process.exit(1);
+    // }
 
-    const prompt = generatePrompt(changes);
+    // const prompt = generatePrompt(changes);
     // console.log(chalk.gray(prompt));
 
-    const result = await generateCommitMessage("console.log('test')");
-console.log(result);
+    const result = await generateCommitMessage();
+    console.log(result);
     // console.log(chalk.green.bold(GeneratedCommit));
   });
 
