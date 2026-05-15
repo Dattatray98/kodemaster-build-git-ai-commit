@@ -8,6 +8,8 @@ import { filterChanges, parseDiff } from './git/parser';
 import { generatePrompt } from './utils/formatter';
 import { config } from './config';
 import { generateCommitMessage } from './Ai/generater';
+import dotenv from "dotenv";
+dotenv.config();
 
 const program = new Command();
 
@@ -40,6 +42,8 @@ program
   .description("shows the prased file chnage difference")
   .action(async () => {
     const diff = await getStagedDiff();
+
+    console.log(chalk.yellow("open ai key " + config.OPEN_API_KEY));
 
     if (!diff) {
       console.log(chalk.red("No staged changes found. Did you forget to git add?"));

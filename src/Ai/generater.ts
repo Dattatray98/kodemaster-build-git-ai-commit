@@ -16,6 +16,11 @@ export const generateCommitMessage = async (diff: string): Promise<string> =>{
     
         return completion.choices[0].message.content || 'Error: No message generated';
     }catch(error){
-        return "chore: update project files"; 
+        const completion = await ollama.generate({
+            model:"llama3",
+            prompt: "system " + SYSTEM_PROMPT + ",user : " + diff,
+        })
+
+        return completion.response;
     }
 }
