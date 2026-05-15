@@ -48,23 +48,22 @@ export const generateCommitMessage = async (diff: string): Promise<string> => {
         return completion.choices?.[0]?.message?.content?.trim()!
 
     } catch (error) {
-        
+
         const completion = await ollama.generate({
             model: "llama3",
-            prompt: `
-${SYSTEM_PROMPT}
+            prompt: `You are an expert Git assistant. Review the following git diff and generate a concise, single-line commit message in Conventional Commits format (e.g., feat: add login validation). Do not include any introduction, explanations, quotes, markdown formatting, or bullet points. Respond ONLY with the raw commit message string.
 
 Git Diff:
-${diff}
-
-Commit Message:
-`
+${diff}`,
+            options: {
+                temperature: 0.1, // Low temperature keeps the model concise and deterministic
+            }
         });
 
-        if(completion.response){
-            return completion.response.trim();
-        }
-
-        return "fix: improve Ai commit message generation logic"
+        return completion.response
+            .trim()
+            .replace(/^["'`]/, '')  // Remove leading quotes
+            .replace(/["'`]$/, '')  // Remove trailing quotes
+            .split('\n')[0];        // Take only the very first line
     }
 }
