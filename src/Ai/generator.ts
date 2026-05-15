@@ -5,7 +5,7 @@ const SYSTEM_PROMPT = `You are a specialized commit message generator. Write a c
 export const generateCommitMessage = async (diff: string): Promise<string> =>{
     try{
         const completion = await openai.chat.completions.create({
-            model: "gpt-4",
+            model: "gpt-3.5-turbo",
             messages: [
                 {role: "system", content:SYSTEM_PROMPT},
                 {role: "user", content:diff}
