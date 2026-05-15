@@ -43,8 +43,6 @@ program
   .action(async () => {
     const diff = await getStagedDiff();
 
-    console.log(chalk.yellow("open ai key " + config.OPEN_API_KEY));
-
     if (!diff) {
       console.log(chalk.red("No staged changes found. Did you forget to git add?"));
       process.exit(1);
