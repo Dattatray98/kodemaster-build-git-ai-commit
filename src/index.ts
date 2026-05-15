@@ -60,9 +60,9 @@ program
     const prompt = generatePrompt(changes);
     // console.log(chalk.gray(prompt));
 
-    const GeneratedCommit = await generateCommitMessage(prompt);
-
-    console.log(chalk.green.bold(GeneratedCommit));
+    const result = await generateCommitMessage("console.log('test')");
+console.log(result);
+    // console.log(chalk.green.bold(GeneratedCommit));
   });
 
 program.parse(process.argv);
