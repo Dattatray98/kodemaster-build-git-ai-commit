@@ -34,11 +34,11 @@ Generate a commit message based on the provided diff.
 `;
 
 export const generateCommitMessage = async (diff: string): Promise<string> => {
-    // Read the model name from the environment, defaulting to the course standard
-    const modelName = process.env.OLLAMA_MODEL || "gpt-3.5-turbo";
+    // Falls back to gpt-3.5-turbo for remote tests, but reads your local override if present
+    const targetModel = process.env.OPENAI_MODEL || "gpt-3.5-turbo";
 
     const completion = await openai.chat.completions.create({
-        model: modelName,
+        model: targetModel,
         messages: [
             { role: "system", content: SYSTEM_PROMPT },
             { role: "user", content: diff }
@@ -53,10 +53,12 @@ export const generateCommitMessage = async (diff: string): Promise<string> => {
         throw new Error("No content received from completion model");
     }
 
-    return content
-        .trim()
+    // Safely extract the first non-empty line
+    const lines = content.split('\n').map(line => line.trim()).filter(Boolean);
+    const primaryLine = lines[0] || '';
+
+    return primaryLine
         .replace(/^["'`]/, '')
         .replace(/["'`]$/, '')
-        .split('\n')[0] // Safely grab the first element of the split array string
         .trim();
 };
