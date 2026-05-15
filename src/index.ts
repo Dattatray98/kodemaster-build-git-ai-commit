@@ -7,7 +7,7 @@ import { getStagedDiff } from './git/diff';
 import { filterChanges, parseDiff } from './git/parser';
 import { generatePrompt } from './utils/formatter';
 import { config } from './config';
-import { generateCommitMessage } from './Ai/generater';
+import { generateCommitMessage } from './Ai/generator';
 import dotenv from "dotenv";
 dotenv.config();
 
