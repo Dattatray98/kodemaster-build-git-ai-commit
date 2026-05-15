@@ -35,35 +35,44 @@ Generate a commit message based on the provided diff.
 `;
 
 export const generateCommitMessage = async (diff: string): Promise<string> => {
-    try {
-        const completion = await openai.chat.completions.create({
-            model: "gpt-3.5-turbo",
-            messages: [
-                { role: "system", content: SYSTEM_PROMPT },
-                { role: "user", content: diff }
-            ],
-            max_tokens: 200
-        });
+    // Force Ollama if configured, or if explicitly requested via environment variable
+    // This allows you to toggle it locally while keeping compatibility with the test runner
+    const useOllama = process.env.AI_PROVIDER === "ollama" || process.env.OLLAMA_HOST || !process.env.OPENAI_API_KEY;
 
-        return completion.choices?.[0]?.message?.content?.trim()!
+    if (useOllama) {
+        try {
+            const modelName = process.env.OLLAMA_MODEL || "llama3";
+            
+            const completion = await ollama.generate({
+                model: modelName,
+                prompt: `${SYSTEM_PROMPT}\n\nGit Diff:\n${diff}`,
+                options: {
+                    temperature: 0.1,
+                }
+            });
 
-    } catch (error) {
-
-        const completion = await ollama.generate({
-            model: "llama3",
-            prompt: `You are an expert Git assistant. Review the following git diff and generate a concise, single-line commit message in Conventional Commits format (e.g., feat: add login validation). Do not include any introduction, explanations, quotes, markdown formatting, or bullet points. Respond ONLY with the raw commit message string.
-
-Git Diff:
-${diff}`,
-            options: {
-                temperature: 0.1, // Low temperature keeps the model concise and deterministic
-            }
-        });
-
-        return completion.response
-            .trim()
-            .replace(/^["'`]/, '')  // Remove leading quotes
-            .replace(/["'`]$/, '')  // Remove trailing quotes
-            .split('\n')[0];        // Take only the very first line
+            // Ensure we return clean text
+            return completion.response
+                .trim()
+                .replace(/^["'`]/, '')
+                .replace(/["'`]$/, '')
+                .split('\n')[0]; // Safe single line retrieval
+        } catch (ollamaError) {
+            console.error("Ollama execution failed:", ollamaError);
+            throw ollamaError;
+        }
     }
-}
+
+    // OpenAI Code Path (Only hit if AI_PROVIDER is not ollama and OpenAI key is active)
+    const completion = await openai.chat.completions.create({
+        model: "gpt-3.5-turbo",
+        messages: [
+            { role: "system", content: SYSTEM_PROMPT },
+            { role: "user", content: diff }
+        ],
+        max_tokens: 200
+    });
+
+    return completion.choices?.[0]?.message?.content?.trim()!;
+};
+    
