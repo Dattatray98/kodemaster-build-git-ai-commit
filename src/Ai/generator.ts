@@ -1,4 +1,5 @@
 import { openai } from "./openai";
+import ollama from "ollama";
 
 const SYSTEM_PROMPT = `You are a specialized commit message generator. Write a concise, conventional commit message based on the provided diff. without any single extra character, and also don't tell what you did, i want only the commit message line only. `;
 
@@ -13,10 +14,18 @@ export const generateCommitMessage = async (diff: string): Promise<string> => {
             max_tokens: 200
         });
 
-        return completion.choices?.[0]?.message?.content?.trim() || "chore: update project files";
+        return completion.choices?.[0]?.message?.content!
 
     } catch (error) {
-        console.error(error);
-        throw error;
+
+        const completion = await ollama.chat({
+            model:"llama3",
+            messages: [
+                {role:"system", content:SYSTEM_PROMPT},
+                {role:"user", content:diff}
+            ]
+        });
+
+        return completion.message.content;
     }
 }
