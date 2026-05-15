@@ -48,6 +48,7 @@ export const generateCommitMessage = async (diff: string): Promise<string> => {
         return completion.choices?.[0]?.message?.content?.trim()!
 
     } catch (error) {
+        
         const completion = await ollama.generate({
             model: "llama3",
             prompt: `
@@ -60,6 +61,10 @@ Commit Message:
 `
         });
 
-        return completion.response.trim();
+        if(completion.response){
+            return completion.response.trim();
+        }
+
+        return ""
     }
 }
