@@ -1,7 +1,38 @@
 import { openai } from "./openai";
 import ollama from "ollama";
 
-const SYSTEM_PROMPT = `You are a specialized commit message generator. Write a concise, conventional commit message based on the provided diff. without any single extra character, and also don't tell what you did, i want only the commit message line only. `;
+const SYSTEM_PROMPT = `
+You are an AI commit message generator.
+
+Your task:
+- Analyze the provided git diff summary.
+- Generate ONE concise conventional commit message.
+- Output ONLY the commit message.
+- Do NOT explain anything.
+- Do NOT use quotes.
+- Do NOT use markdown.
+- Do NOT add extra lines.
+
+Rules:
+- Use conventional commit format.
+- Allowed types:
+  feat:
+  fix:
+  docs:
+  refactor:
+  chore:
+  test:
+  style:
+
+Examples:
+feat: add user authentication flow
+fix: resolve API response parsing issue
+docs: update installation instructions
+chore: update project dependencies
+refactor: simplify diff parser logic
+
+Generate a commit message based on the provided diff.
+`;
 
 export const generateCommitMessage = async (diff: string): Promise<string> => {
     try {
@@ -18,10 +49,17 @@ export const generateCommitMessage = async (diff: string): Promise<string> => {
 
     } catch (error) {
         const completion = await ollama.generate({
-            model:"llama3",
-            prompt:`system : ${SYSTEM_PROMPT}, user: ${diff}`
+            model: "llama3",
+            prompt: `
+${SYSTEM_PROMPT}
+
+Git Diff:
+${diff}
+
+Commit Message:
+`
         });
 
-        return completion.response;
+        return completion.response.trim();
     }
 }
