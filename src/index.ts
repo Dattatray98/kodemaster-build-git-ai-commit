@@ -6,7 +6,7 @@ import { getStagedDiff } from './git/diff';
 import { filterChanges, parseDiff } from './git/parser';
 import { generatePrompt } from './utils/formatter';
 import { validateConfig } from './config';
-import dotenv from "dotenv";
+import dotenv, { config } from "dotenv";
 import { generateCommitMessage } from './ai/generator';
 dotenv.config();
 
@@ -40,7 +40,7 @@ program
   .command('generate')
   .description("shows the prased file chnage difference")
   .action(async () => {
-    
+
     // if (!diff) {
       //   console.log(chalk.red("No staged changes found. Did you forget to git add?"));
       //   process.exit(1);
