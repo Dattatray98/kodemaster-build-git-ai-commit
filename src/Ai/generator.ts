@@ -56,7 +56,7 @@ export const generateCommitMessage = async (diff: string): Promise<string> => {
     }
 
     const content = completion.choices[0]?.message?.content;
-    
+
     if (!content || content.trim() === '') {
         throw new Error("No content received from completion model");
     }

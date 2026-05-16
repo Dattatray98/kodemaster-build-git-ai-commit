@@ -8,6 +8,7 @@ import { generatePrompt } from './utils/formatter';
 import { validateConfig } from './config';
 import dotenv, { config } from "dotenv";
 import { generateCommitMessage } from './ai/generator';
+import { GitCommit } from './git/commit';
 dotenv.config();
 
 const program = new Command();
@@ -48,6 +49,9 @@ program
 
     console.log('Proposed Commit Message:');
     console.log(message);
+
+    const commitRes = await GitCommit(message);
+    console.log(commitRes);
   });
 
 
