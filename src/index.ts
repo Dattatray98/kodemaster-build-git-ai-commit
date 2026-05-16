@@ -29,6 +29,17 @@ program
 
 
 program
+  .command("filter-diff")
+  .description("show the filtered diff.")
+  .action(async ()=>{
+    const diff = await getStagedDiff();
+    const changes = filterChanges(parseDiff(diff));
+    console.log(chalk.yellow(`filter changes : `))
+    console.log(changes)
+  })
+
+
+program
   .command("aicommit")
   .description("shows the prased file chnage difference")
   .action(async()=>{
