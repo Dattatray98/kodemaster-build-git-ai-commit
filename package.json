@@ -5,7 +5,7 @@
   "type": "module",
   "main": "src/index.ts",
   "bin": {
-    "git-ai-commit": "src/index.ts"
+    "gayc": "src/index.ts"
   },
   "scripts": {
     "build": "bun build src/index.ts --outdir dist --target=node",
