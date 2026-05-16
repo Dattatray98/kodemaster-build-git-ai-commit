@@ -6,7 +6,7 @@ import { getStagedDiff } from './git/diff';
 import { filterChanges, parseDiff } from './git/parser';
 import { generatePrompt } from './utils/formatter';
 import { validateConfig } from './config';
-import dotenv, { config } from "dotenv";
+import dotenv from "dotenv";
 import { generateCommitMessage } from './ai/generator';
 import { GitCommit } from './git/commit';
 dotenv.config();
@@ -62,6 +62,11 @@ program
     const prompt = generatePrompt(changes);
     const message = await generateCommitMessage(prompt);
 
+    if(!message){
+      console.log(chalk.red("Error while generating message!"));
+      process.exit(1);
+    }
+    
     console.log(chalk.yellow('Proposed Commit Message:'));
     console.log(message + "\n");
 
