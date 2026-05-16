@@ -7,7 +7,7 @@ import { filterChanges, parseDiff } from './git/parser';
 import { generatePrompt } from './utils/formatter';
 import { validateConfig } from './config';
 import dotenv, { config } from "dotenv";
-import { generateCommitMessage } from './Ai/generator';
+import { generateCommitMessage } from './ai/generator';
 import { GitCommit } from './git/commit';
 dotenv.config();
 
