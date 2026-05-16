@@ -23,16 +23,25 @@ program
   .command("diff")
   .description("shows git diff")
   .action(async () => {
-    const stdout = await getStagedDiff();
-    console.log(stdout);
+    const diff = await getStagedDiff();
+    if (!diff) {
+      console.log(chalk.yellow("no staged changes found! first try 'git add .' or 'git add ./filename'"));
+      process.exit(1);
+    }
+    console.log(diff);
   });
 
 
 program
   .command("filter-diff")
   .description("show the filtered diff.")
-  .action(async ()=>{
+  .action(async () => {
     const diff = await getStagedDiff();
+    if (!diff) {
+      console.log(chalk.yellow("no staged changes found! first try 'git add .' or 'git add ./filename'"));
+      process.exit(1);
+    }
+
     const changes = filterChanges(parseDiff(diff));
     console.log(chalk.yellow(`filter changes : `))
     console.log(changes)
@@ -42,9 +51,13 @@ program
 program
   .command("aicommit")
   .description("shows the prased file chnage difference")
-  .action(async()=>{
+  .action(async () => {
     validateConfig();
     const diff = await getStagedDiff();
+    if (!diff) {
+      console.log(chalk.yellow("no staged chnages found! first try 'git add .' or 'git add ./filename' "));
+      process.exit(1);
+    }
     const changes = filterChanges(parseDiff(diff));
     const prompt = generatePrompt(changes);
     const message = await generateCommitMessage(prompt);
