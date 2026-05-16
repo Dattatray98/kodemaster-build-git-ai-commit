@@ -1,15 +1,17 @@
 {
   "name": "git-ai-commit",
-  "description": "Build an AI-Powered Commit Message Generator challenge, from Vizh.ai",
   "version": "1.0.0",
+  "description": "AI-powered git commit message generator",
+  "author": "Dattatray Jojewar",
   "type": "module",
   "main": "src/index.ts",
   "bin": {
-    "gayc": "src/index.ts"
+    "git-ai-commit": "./dist/index.js",
+    "gayc": "./dist/index.js"
   },
   "scripts": {
     "build": "bun build src/index.ts --outdir dist --target=node",
-    "dev": "bun run src/index.ts"
+    "dev": " run src/index.ts"
   },
   "dependencies": {
     "chalk": "^5.3.0",
