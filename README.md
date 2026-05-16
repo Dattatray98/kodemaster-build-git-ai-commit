@@ -1,33 +1,159 @@
-[![progress-banner](https://backend.vizh.ai/progress/build-git-ai-commit/YOUR_USER_ID)](https://app.vizh.ai/challenges/build-git-ai-commit)
 
-This is a starting point for TypeScript solutions to the
-["Build an AI-Powered Commit Message Generator" Challenge](https://app.vizh.ai/challenges/build-git-ai-commit).
+# Git-AI-Commit
 
-In this challenge, you'll build a professional CLI tool that generates intelligent 
-commit messages using AI. Along the way, you'll learn about CLI development, Git 
-integration, OpenAI API usage, and more.
+AI-powered commit message generator for Git repositories using Bun, TypeScript, OpenAI, and Ollama.
 
-**Note**: If you're viewing this repo on GitHub, head over to
-[vizh.ai](https://vizh.ai) to try the challenge.
+Generate clean conventional commit messages directly from your staged Git changes.
 
-# Passing the first stage
+## Features
 
-The entry point for your CLI implementation is in `src/index.ts`. Study and
-uncomment the relevant code, and push your changes to pass the first stage:
+- Generate commit messages from staged Git diffs
+- Supports Conventional Commit format
+- OpenAI integration
+- Ollama local AI fallback
+- Fast Bun runtime
+- TypeScript support
+- CLI-based workflow
+- Diff parsing and filtering
 
-```sh
-git commit -am "pass 1st stage" # any msg
-git push origin main
+---
+
+## Tech Stack
+
+- Bun
+- TypeScript
+- Commander.js
+- OpenAI API
+- Ollama
+- Chalk
+
+---
+
+## Installation
+
+Clone the repository:
+
+```bash
+git clone https://github.com/your-username/git-ai-commit.git
+cd git-ai-commit
 ```
 
-Time to move on to the next stage!
+Install dependencies:
 
-# Stage 2 & beyond
+```bash
+bun install
+```
 
-Note: This section is for stages 2 and beyond.
+---
 
-1. Ensure you have `node (20+)` installed locally
-1. Run `./your_program.sh` to run your program, which is implemented in
-   `src/index.ts`.
-1. Commit your changes and run `git push origin main` to submit your solution
-   to Vizh.ai. Test output will be streamed to your terminal.
+## Environment Variables
+
+Create a `.env` file in the project root:
+
+```env
+OPENAI_API_KEY=your_openai_api_key
+```
+
+---
+
+## Usage
+
+Stage your changes:
+
+```bash
+git add .
+```
+
+Generate commit message:
+
+```bash
+bun run dev generate
+```
+
+Example output:
+
+```bash
+feat: add git diff parser
+```
+
+---
+
+## Available Commands
+
+### Generate Commit Message
+
+```bash
+bun run dev generate
+```
+
+### Show Git Diff
+
+```bash
+bun run dev diff
+```
+
+### Hello Test Command
+
+```bash
+bun run dev hello
+```
+
+---
+
+## Project Structure
+
+```text
+src/
+├── ai/
+│   ├── generator.ts
+│   └── openai.ts
+├── git/
+│   ├── diff.ts
+│   └── parser.ts
+├── utils/
+│   └── formatter.ts
+├── config.ts
+└── index.ts
+```
+
+---
+
+## How It Works
+
+1. Reads staged Git changes
+2. Parses and filters diffs
+3. Creates a structured AI prompt
+4. Sends prompt to OpenAI
+5. Falls back to Ollama if needed
+6. Returns a clean conventional commit message
+
+---
+
+## Conventional Commit Examples
+
+```text
+feat: add authentication module
+fix: resolve parser crash
+chore: update dependencies
+docs: update README
+refactor: simplify commit generation flow
+```
+
+---
+
+## Future Improvements
+
+- Interactive commit selection
+- Git hook integration
+- Multi-language support
+- Better diff summarization
+- Local embedding support
+- Streaming responses
+- Commit history learning
+
+---
+
+## Author
+
+Developed by Dattatray Kadre
+
