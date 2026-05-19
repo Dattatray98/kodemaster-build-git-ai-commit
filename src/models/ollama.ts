@@ -3,7 +3,7 @@ import { SYSTEM_PROMPT } from "../utils/prompt";
 
 export const generateWithOllama = async (diff: string, model: string) => {
     try {
-        console.log("diff : ", diff + "\n\n model : ", model)
+
         const response = await ollama.chat({
             model: model,
             messages:[
