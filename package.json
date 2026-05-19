@@ -6,12 +6,12 @@
   "type": "module",
   "main": "src/index.ts",
   "bin": {
-    "git-ai-commit": "./dist/index.js",
-    "gayc": "./src/index.js"
+    "git-ai-commit": "./dist/core/index.js",
+    "gayc": "./src/core/index.js"
   },
   "scripts": {
-    "build": "bun build src/index.ts --outdir dist --target=node",
-    "dev": "bun run src/index.ts"
+    "build": "bun build src/core/index.ts --outdir dist --target=node",
+    "dev": "bun run src/core/index.ts"
   },
   "dependencies": {
     "chalk": "^5.3.0",

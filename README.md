@@ -1,5 +1,5 @@
 
-# Git-AI-Commit
+# Navix - Navigational AI for Versioning & Intelligent eXecution
 
 AI-powered commit message generator for Git repositories using Bun, TypeScript, OpenAI, and Ollama.
 
