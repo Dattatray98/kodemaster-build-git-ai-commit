@@ -27,7 +27,7 @@ export const commitCommand = new Command("commit")
         }
 
         console.log(chalk.yellow('Proposed Commit Message:'));
-        console.log(message + "\n");
+        console.log(chalk.green(message) + "\n");
 
         const commitRes = await GitCommit(message)
 
