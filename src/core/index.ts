@@ -13,7 +13,7 @@ import { GitCommit } from '../git_tools/commit';
 const program = new Command();
 
 program
-  .name('git-ai-commit')
+  .name('navix')
   .description('AI-powered commit message generator')
   .version('1.0.0');
 
