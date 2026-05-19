@@ -49,7 +49,7 @@ program
 
 
 program
-  .command("aicommit")
+  .command("commit")
   .description("shows the prased file chnage difference")
   .action(async () => {
     validateConfig();
