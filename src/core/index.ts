@@ -6,10 +6,9 @@ import { getStagedDiff } from '../git_tools/diff';
 import { filterChanges, parseDiff } from '../git_tools/parser';
 import { generatePrompt } from '../utils/formatter';
 import { validateConfig } from '../config';
-import dotenv from "dotenv";
 import { generateCommitMessage } from '../ai_models/generator';
 import { GitCommit } from '../git_tools/commit';
-dotenv.config();
+
 
 const program = new Command();
 
