@@ -1,5 +1,4 @@
 import { loadConfig } from "../config/config"
-import { SYSTEM_PROMPT } from "../utils/prompt";
 import { generateWithOllama } from "./ollama";
 
 
@@ -19,6 +18,6 @@ export const generateCommitMessage = async (diff: string) => {
     if (!res) {
         console.log("response not received")
     }
-    console.log(res)
+
     return res;
 }
