@@ -1,13 +1,19 @@
 import ollama from "ollama";
+import { SYSTEM_PROMPT } from "../utils/prompt";
 
 export const generateWithOllama = async (diff: string, model: string) => {
     try {
-        const response = await ollama.generate({
+        console.log("diff : ", diff + "\n\n model : ", model)
+        const response = await ollama.chat({
             model: model,
-            prompt: diff
+            messages:[
+                {role:"system", content:SYSTEM_PROMPT},
+                {role:"user", content:diff}
+            ]
         });
 
-        return response.response;
+        console.log("response : ", response.message.content)
+        return response.message.content;
     } catch (error) {
         console.log(error);
         throw error;

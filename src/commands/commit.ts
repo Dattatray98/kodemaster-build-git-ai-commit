@@ -1,4 +1,3 @@
-import { loadConfig } from "../config/config";
 import { Command } from "commander";
 import { getStagedDiff } from "../git_tools/diff";
 import chalk from "chalk";
@@ -22,6 +21,7 @@ export const commitCommand = new Command("commit")
         const prompt = formateDiff(changes)
         const message = await generateCommitMessage(prompt)
 
+        console.log("\nmessage : ", message)
         if (!message) {
             console.log(chalk.red("Error while generating message!"));
             process.exit(1);

@@ -9,17 +9,16 @@ export const generateCommitMessage = async (diff: string) => {
         return "chore: minor repository updates";
     }
 
-    const context = `system : ${SYSTEM_PROMPT}, diff : ${diff}`
-
     const config = await loadConfig();
     if (!config) {
         console.log("config is missing!")
     }
 
-    const res = await generateWithOllama(context, config?.model!)
+    const res = await generateWithOllama(diff, config?.model!)
 
     if (!res) {
         console.log("response not received")
     }
     console.log(res)
+    return res;
 }
