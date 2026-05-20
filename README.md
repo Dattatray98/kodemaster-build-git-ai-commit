@@ -37,6 +37,12 @@ npm install -g "@jdattatray.ls/navix"
 
 ---
 
+## Upgrade to latest Version
+
+```bash
+npm update -g "@jdattatray.ls/navix"
+```
+
 # Setup
 
 Navix uses a persistent configuration system.
