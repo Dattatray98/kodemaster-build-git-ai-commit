@@ -3,16 +3,17 @@
   "version": "1.0.1",
   "description": "AI-powered git commit message generator",
   "author": "Dattatray Jojewar",
+  "license": "MIT",
   "type": "module",
   "main": "./dist/index.js",
+  "bin": {
+    "navix": "dist/index.js"
+  },
   "files": [
     "dist",
     "README.md",
     "LICENSE"
   ],
-  "bin": {
-    "navix": "dist/index.js"
-  },
   "scripts": {
     "build": "bun build src/core/index.ts --outdir dist --target=node",
     "dev": "bun run src/core/index.ts",
@@ -35,10 +36,14 @@
     "cli",
     "ollama",
     "openai",
-    "navix",
     "commit",
-    "agent"
+    "commit-generator",
+    "developer-tools",
+    "typescript"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "dependencies": {
     "chalk": "^5.3.0",
     "commander": "^11.1.0",
