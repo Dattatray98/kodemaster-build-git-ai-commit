@@ -8,9 +8,9 @@ export async function getStagedDiff(): Promise<string> {
 
         const {stdout} = await execAsync('git diff --staged');
         return stdout;
-    }catch(error){
+    }catch(error:any){
         console.error('Error reading git diff : ', error);
-        return '';
+        throw new Error(error)
     }
 }
 

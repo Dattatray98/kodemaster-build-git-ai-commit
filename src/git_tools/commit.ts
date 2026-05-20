@@ -10,8 +10,8 @@ export const GitCommit = async (message: string) => {
         const { stdout } = await execAsync(`git commit -m ${JSON.stringify(message)}`);
         return stdout;
 
-    } catch (error) {
+    } catch (error:any) {
         console.error("Error while git commit ", error);
-        return "";
+        throw new Error(error)
     }
 }

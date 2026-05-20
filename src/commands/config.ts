@@ -7,18 +7,28 @@ export const configCommand = new Command("config")
     .option("--provider <provider>", "AI provider")
     .option("--model <model>", "Model name")
     .action(async (options) => {
-        const { provider, model } = options;
-        await setupConfig(provider, model);
+        try{
+            const { provider, model } = options;
+            await setupConfig(provider, model);
+        }catch(error){
+            console.error(error);
+            throw error;
+        }
     })
 
 
 export const checkConfigCommand = new Command("check-config")
     .description("check the AI provider name and model name")
     .action(async () => {
-        const config = await loadConfig();
-        if (!config) {
-            console.log("config is missing!");
+        try{
+            const config = await loadConfig();
+            if (!config) {
+                console.log("config is missing!");
+            }
+            console.log(config)
+        }catch(error){
+            console.error(error)
+            throw error;
         }
-        console.log(config)
     })
 
