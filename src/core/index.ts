@@ -17,7 +17,7 @@ program.addCommand(commitCommand)
 program
   .name('navix')
   .description('AI-powered commit message generator')
-  .version('1.0.1');
+  .version('1.1.0');
   
 
 program
